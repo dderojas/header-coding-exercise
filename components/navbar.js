@@ -1,4 +1,5 @@
 import react from 'react';
+import Image from 'next/image'
 import { Box, Flex, Grid } from 'theme-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -94,7 +95,7 @@ const Navbar = () => {
         <Grid sx={{ display: 'flex', alignItems: 'center'}}>
           Search
           <FontAwesomeIcon icon={faSearch} />
-          {/* <img src={'https://cdn2.hubspot.net/hubfs/4004166/bioticresearch_website_assets/images/search_icon.png'} width="40" alt="Search" /> */}
+          {/* <Image src="/flag-logo.png" alt="flag logo" width={50} height={50}/> */}
         </Grid >
       </Grid>
     )
