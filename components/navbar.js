@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import Image from 'next/image'
-import { Link } from 'react-router-dom'
-import { Box } from 'theme-ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faQuestionCircle, faShieldAlt, faUser, faMapMarkerAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import Dropdown from './dropdown';
@@ -43,10 +41,10 @@ const BottomRowDiv = styled("div")`
     display: none;
   }
 `
-const NavbarItems = styled("div")`
-  padding: 10px;
-  margin-bottom: -1px;
-  &:focus {
+const NavbarItems = styled("h3")`
+  padding: 10px 10px 25px 10px;
+  margin-bottom: 0px;
+  :hover {
     color: #B81830;
     border-bottom: 3px solid #B81830;
   };
@@ -60,7 +58,7 @@ const IconDiv = styled("div")`
   align-item: center;
   margin-left: auto;
 `
-const FaAwesomeDiv = styled("div")`
+const FaContainer = styled("div")`
   padding: 0 7px 0 7px;
 `
 
@@ -70,6 +68,7 @@ const MobileDiv = styled("div")`
     display: flex;
     justify-content: flex-start; 
     align-items: center;
+    padding-right: 20px;
   } 
 `
 const MobileLogoDiv = styled("div")`
@@ -82,10 +81,17 @@ const MobileLogoDiv = styled("div")`
     padding: 10px;
 } 
 `
+const browserDropdownItems = [
+  { name: 'Solutions by Industry', path: 'home' },
+  { name: 'Solutions by Process', path: 'cabin' },
+  { name: 'Software Solutions', path: 'mansion' },
+  { name: 'Services', path: 'home' },
+]
+
 
 const Navbar = () => {
-    const [openDrop, handleOpenDrop] = useState(false)
-    const toggle = () => handleOpenDrop(!openDrop);
+    const [openDrop, setOpenDrop] = useState(false)
+    const toggle = () => setOpenDrop(!openDrop);
 
     return (
       <ParentDiv id="test">
@@ -95,66 +101,66 @@ const Navbar = () => {
           </FlagDiv>
           EN
           <IconDiv>
-            <FaAwesomeDiv sx={{ padding: '0 7px 0 7px'}}>
+            <FaContainer>
               <FontAwesomeIcon icon={faShieldAlt} />
-            </FaAwesomeDiv>
-            <FaAwesomeDiv sx={{ padding: '0 7px 0 7px'}}>
+            </FaContainer>
+            <FaContainer>
               <FontAwesomeIcon icon={faQuestionCircle} />
-            </FaAwesomeDiv>
-            <FaAwesomeDiv sx={{ padding: '0 7px 0 7px'}}>
+            </FaContainer>
+            <FaContainer>
               <FontAwesomeIcon icon={faMapMarkerAlt} />
-            </FaAwesomeDiv>
-            <FaAwesomeDiv sx={{ padding: '0 7px 0 7px'}}>
+            </FaContainer>
+            <FaContainer>
               <FontAwesomeIcon icon={faUser} />
-            </FaAwesomeDiv>
-            <FaAwesomeDiv sx={{ padding: '0 7px 0 7px'}}>
+            </FaContainer>
+            <FaContainer>
               <FontAwesomeIcon icon={faShoppingCart} />
-            </FaAwesomeDiv>
+            </FaContainer>
+            3
           </IconDiv>
         </TopRowDiv>
         <BottomRowDiv>
           <Image src="/lincoln-electric-logo.png" alt="flag logo" width={120} height={50}/>
           <NavbarItems onClick={toggle}>
-            <h3>
               SOLUTIONS
-            </h3>
           </NavbarItems>
           <NavbarItems>
-            <h3>
               PRODUCTS
-            </h3>
           </NavbarItems>
           <NavbarItems>
-            <h3>
               AUTOMATION
-            </h3>
           </NavbarItems>
           <NavbarItems>
-            <h3>
               EDUCATION
-            </h3>
           </NavbarItems>
           <NavbarItems>
-            <h3>
               RESOURCES
-            </h3>
           </NavbarItems>
           <IconDiv>
             Search
-              <Box sx={{paddingLeft: '10px'}}>
-                <FontAwesomeIcon icon={faSearch} />
-              </Box>
+          <FaContainer>
+              <FontAwesomeIcon icon={faSearch} />
+          </FaContainer>
           </IconDiv >
         </BottomRowDiv>
-        <Dropdown isOpen={openDrop}/>
+        {openDrop && <Dropdown options={browserDropdownItems}/>}
         <MobileDiv>
           <Burger />
           <MobileLogoDiv>
             <Image src="/lincoln-electric-logo.png" alt="flag logo" width={100} height={50}/>
           </MobileLogoDiv>
-          <Box sx={{ display: 'inline-flex', marginLeft: 'auto'}}>
-            <FontAwesomeIcon icon={faQuestionCircle} />
-          </Box>
+          <IconDiv>
+            <FaContainer>
+              <FontAwesomeIcon size="lg" icon={faSearch} />
+            </FaContainer>
+            <FaContainer>
+              <FontAwesomeIcon size="lg" icon={faUser} />
+            </FaContainer>
+            <FaContainer>
+              <FontAwesomeIcon size="lg" icon={faShoppingCart} />
+            </FaContainer>
+            3
+          </IconDiv>
         </MobileDiv>
       </ParentDiv>
     )

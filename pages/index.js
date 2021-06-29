@@ -1,5 +1,7 @@
 import Navbar from '../components/navbar'
 import Home from './home'
+import Cabin from './cabin'
+import Mansion from './mansion'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -15,8 +17,10 @@ const App = () => {
       <Page>
         <Navbar />
         <Switch>
-          {/*routing example */}
+          {/*routing examples */}
           <Route path="/home" exact component={Home}/>
+          <Route path="/cabin" exact component={Cabin}/>
+          <Route path="/mansion" exact component={Mansion}/>
         </Switch>
       </Page>
     </Router>

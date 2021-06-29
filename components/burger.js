@@ -1,100 +1,51 @@
+import { useState } from 'react'
 import Image from 'next/image'
-import { Link } from 'react-router-dom'
-import { slide as Menu} from 'react-burger-menu'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestionCircle, faShieldAlt, faUser, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faShieldAlt, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import MobileDropdown from './mobile-dropdown'
 
-const BurgerWrapper = styled('div')`
-  display: inline-flex;
-  justify-content: flex-start;
-  align-items: center;
-  display: none;
-  @media (max-width: 480px) {
-    display: inline-flex;
-  }
+const BurgerLines = styled("div")`
+  width: 25px;
+  height: 4px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
 `
-const ListItem = styled("li")`
-  list-style: none;
-  margin-bottom: 0.8em;
-`;
+const BurgerWrapper = styled("div")`
+  display: inline-block;
+  cursor: pointer;
+  padding: 0 0 0 15px;
+`
 
-const styles = {
-  bmBurgerButton: {
-    display: 'inline-flex',
-    position: 'relative',
-    marginLeft: '20px',
-    width: '36px',
-    height: '30px',
-    // left: '36px',
-    // top: '36px'
-  },
-  bmBurgerBars: {
-    // display: 'inline-flex',
-    background: '#373a47'
-  },
-  bmBurgerBarsHover: {
-    background: '#a90000'
-  },
-  bmCrossButton: {
-    height: '24px',
-    width: '24px'
-  },
-  bmCross: {
-    background: '#bdc3c7'
-  },
-  bmMenuWrap: { // be careful when changing
-    position: 'fixed',
-    height: '100%',
-    width: '100%'
-  },
-  bmMenu: {
-    background: '#FFFFFF',
-    // padding: '2.5em 1.5em 0',
-    fontSize: '1.15em',
-    height: '100%'
-  },
-  bmMorphShape: {
-    fill: '#373a47'
-  },
-  bmItemList: {
-    display: 'flex',
-    flexDirection: 'column',
-    color: '#181818',
-    padding: '0.8em',
-    position: 'fixed'
-  },
-  bmItem: {
-    display: 'inline-block'
-  },
-  bmOverlay: {
-    height: '100%',
-    background: 'rgba(0, 0, 0, 0.3)'
-  }
-}
-
-const options = [
-    'Menu','Solutions by Industry', 
-    'Solutions by Process', 
-    'Software Solutions', 
-    'Services', 
-    (<FontAwesomeIcon icon={faQuestionCircle} />),
-    (<FontAwesomeIcon icon={faMapMarkerAlt} />),
-    (<FontAwesomeIcon icon={faShieldAlt} />),
-    (<Image src="/flag-logo.png" alt="flag logo" width={20} height={20}/>),
-];
+const mobileNavItems = [
+  { name: 'MENU' },
+  { name: 'SOLUTIONS' },
+  { name: 'PRODUCTS' },
+  { name: 'AUTOMATION' },
+  { name: 'EDUCATION' },
+  { name: 'RESOURCES' },
+  { name: (<FontAwesomeIcon icon={faQuestionCircle} />), type: 'icon', desc: 'Help'},
+  { name: (<FontAwesomeIcon icon={faMapMarkerAlt} />), type: 'icon', desc: 'Where to Buy/Rent'},
+  { name: (<FontAwesomeIcon icon={faShieldAlt} />), type: 'icon', desc: 'Safety'},
+  { name: (<Image src="/flag-logo.png" alt="flag logo" width={20} height={20}/>), type: 'icon', desc: 'EN'},
+]
 
 const Burger = () => {
+    const [click, setClick] = useState(false);
+  
+    const handleClick = () => setClick(!click);
+
     return(
-        <BurgerWrapper>
-            <Menu styles={styles}>
-            {options.map(option => (
-                  <ListItem key={Math.random()}>
-                    <Link to="/">{option}</Link>
-                  </ListItem>
-            ))}
-            </Menu>
-        </BurgerWrapper>
+        <div>
+            { click ? <MobileDropdown options={mobileNavItems}/> : 
+                <BurgerWrapper onClick={handleClick}>
+                    <BurgerLines></BurgerLines>
+                    <BurgerLines></BurgerLines>
+                    <BurgerLines></BurgerLines>
+                </BurgerWrapper>
+            }
+    </div>
     )
 }
 
